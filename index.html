@@ -381,7 +381,7 @@ body{
             </div>
 
             <div class="stat">
-                📝 <span id="number">1</span>/10
+                📝 <span id="number">1</span>/<span id="totalQuestion"></span>
             </div>
         </div>
 
@@ -492,76 +492,370 @@ body{
 const questions = [
 
 {
-    location:"🏫 SEKOLAH",
-    picture:"🚌",
-    question:"Kania pergi ke sekolah naik",
-    answers:["bus","bis"]
+location:"🏫 SEKOLAH",
+picture:"🚌",
+question:"Kania pergi ke sekolah naik",
+answers:["bus","bis"]
 },
 
 {
-    location:"🏠 RUMAH",
-    picture:"🛏️",
-    question:"Kita tidur di atas",
-    answers:["kasur","tempat tidur"]
+location:"🏠 RUMAH",
+picture:"🛏️",
+question:"Kita tidur di atas",
+answers:["kasur","tempat tidur"]
 },
 
 {
-    location:"🍎 PASAR",
-    picture:"🍎",
-    question:"Buah yang berwarna merah ini adalah",
-    answers:["apel"]
+location:"🍎 PASAR",
+picture:"🍎",
+question:"Buah yang berwarna merah ini adalah",
+answers:["apel"]
 },
 
 {
-    location:"🐯 KEBUN BINATANG",
-    picture:"🐯",
-    question:"Hewan ini disebut",
-    answers:["harimau"]
+location:"🐯 KEBUN BINATANG",
+picture:"🐯",
+question:"Hewan ini disebut",
+answers:["harimau"]
 },
 
 {
-    location:"🌳 TAMAN",
-    picture:"🌸",
-    question:"Benda yang berwarna indah ini adalah",
-    answers:["bunga"]
+location:"🌳 TAMAN",
+picture:"🌸",
+question:"Benda yang berwarna indah ini adalah",
+answers:["bunga"]
 },
 
 {
-    location:"🍽️ DAPUR",
-    picture:"🥄",
-    question:"Kita makan menggunakan",
-    answers:["sendok"]
+location:"🍽️ DAPUR",
+picture:"🥄",
+question:"Kita makan menggunakan",
+answers:["sendok"]
 },
 
 {
-    location:"🌧️ HUJAN",
-    picture:"☔",
-    question:"Saat hujan kita memakai",
-    answers:["payung"]
+location:"🌧️ HUJAN",
+picture:"☔",
+question:"Saat hujan kita memakai",
+answers:["payung"]
 },
 
 {
-    location:"🐱 RUMAH",
-    picture:"🐟",
-    question:"Kucing suka makan",
-    answers:["ikan"]
+location:"🐱 RUMAH",
+picture:"🐟",
+question:"Kucing suka makan",
+answers:["ikan"]
 },
 
 {
-    location:"🏖️ PANTAI",
-    picture:"🌊",
-    question:"Air yang sangat luas di pantai disebut",
-    answers:["laut"]
+location:"🏖️ PANTAI",
+picture:"🌊",
+question:"Air yang sangat luas di pantai disebut",
+answers:["laut"]
 },
 
 {
-    location:"🚀 LUAR ANGKASA",
-    picture:"🌙",
-    question:"Benda yang terlihat pada malam hari adalah",
-    answers:["bulan"]
+location:"🚀 LUAR ANGKASA",
+picture:"🌙",
+question:"Benda yang terlihat pada malam hari adalah",
+answers:["bulan"]
+},
+
+{
+location:"🐔 PETERNAKAN",
+picture:"🐔",
+question:"Hewan yang bertelur ini adalah",
+answers:["ayam"]
+},
+
+{
+location:"🐄 PETERNAKAN",
+picture:"🐄",
+question:"Hewan yang menghasilkan susu adalah",
+answers:["sapi"]
+},
+
+{
+location:"🌾 PADANG",
+picture:"🐐",
+question:"Hewan yang suka makan rumput adalah",
+answers:["kambing"]
+},
+
+{
+location:"🚲 JALAN",
+picture:"🚲",
+question:"Alat transportasi beroda dua adalah",
+answers:["sepeda"]
+},
+
+{
+location:"📚 PERPUSTAKAAN",
+picture:"📚",
+question:"Tempat menyimpan buku adalah",
+answers:["rak"]
+},
+
+{
+location:"✏️ KELAS",
+picture:"✏️",
+question:"Alat untuk menulis adalah",
+answers:["pensil"]
+},
+
+{
+location:"🏠 RUMAH",
+picture:"🧹",
+question:"Alat untuk membersihkan lantai adalah",
+answers:["sapu"]
+},
+
+{
+location:"🦷 KAMAR MANDI",
+picture:"🪥",
+question:"Digunakan untuk membersihkan gigi",
+answers:["sikat gigi"]
+},
+
+{
+location:"🍌 KEBUN",
+picture:"🍌",
+question:"Buah berwarna kuning ini adalah",
+answers:["pisang"]
+},
+
+{
+location:"🥭 KEBUN",
+picture:"🥭",
+question:"Buah manis berwarna kuning adalah",
+answers:["mangga"]
+},
+
+{
+location:"🐘 KEBUN BINATANG",
+picture:"🐘",
+question:"Hewan besar yang memiliki belalai adalah",
+answers:["gajah"]
+},
+
+{
+location:"🦒 KEBUN BINATANG",
+picture:"🦒",
+question:"Hewan berleher panjang adalah",
+answers:["jerapah"]
+},
+
+{
+location:"🌴 HUTAN",
+picture:"🐒",
+question:"Hewan yang suka memanjat pohon adalah",
+answers:["monyet"]
+},
+
+{
+location:"🥕 KEBUN",
+picture:"🐰",
+question:"Hewan dengan telinga panjang adalah",
+answers:["kelinci"]
+},
+
+{
+location:"🐢 TAMAN",
+picture:"🐢",
+question:"Hewan bercangkang yang berjalan lambat adalah",
+answers:["kura kura","kura-kura"]
+},
+
+{
+location:"🍚 DAPUR",
+picture:"🍚",
+question:"Makanan pokok orang Indonesia adalah",
+answers:["nasi"]
+},
+
+{
+location:"🥛 DAPUR",
+picture:"🥛",
+question:"Minuman berwarna putih ini adalah",
+answers:["susu"]
+},
+
+{
+location:"🌳 TAMAN",
+picture:"🌳",
+question:"Tumbuhan besar yang memiliki batang adalah",
+answers:["pohon"]
+},
+
+{
+location:"🌹 TAMAN",
+picture:"🌹",
+question:"Bunga merah berduri disebut",
+answers:["mawar"]
+},
+
+{
+location:"🎈 ULANG TAHUN",
+picture:"🎈",
+question:"Mainan yang bisa terbang berisi udara adalah",
+answers:["balon"]
+},
+
+{
+location:"⚽ LAPANGAN",
+picture:"⚽",
+question:"Permainan yang menggunakan bola kaki adalah",
+answers:["sepak bola"]
+},
+
+{
+location:"🏀 LAPANGAN",
+picture:"🏀",
+question:"Bola oranye untuk dimainkan adalah",
+answers:["basket"]
+},
+
+{
+location:"🎨 SEKOLAH",
+picture:"🎨",
+question:"Alat untuk mewarnai gambar adalah",
+answers:["krayon"]
+},
+
+{
+location:"📖 PERPUSTAKAAN",
+picture:"📖",
+question:"Kita membaca menggunakan",
+answers:["buku"]
+},
+
+{
+location:"🏠 RUMAH",
+picture:"🏠",
+question:"Tempat tinggal manusia adalah",
+answers:["rumah"]
+},
+
+{
+location:"🏫 SEKOLAH",
+picture:"👩‍🏫",
+question:"Orang yang mengajar di kelas disebut",
+answers:["guru"]
+},
+
+{
+location:"🏥 RUMAH SAKIT",
+picture:"👨‍⚕️",
+question:"Orang yang mengobati pasien disebut",
+answers:["dokter"]
+},
+
+{
+location:"🚒 KOTA",
+picture:"🚒",
+question:"Mobil pemadam digunakan untuk memadamkan",
+answers:["api"]
+},
+
+{
+location:"🌊 LAUT",
+picture:"🐠",
+question:"Hewan yang hidup di air adalah",
+answers:["ikan"]
+},
+
+{
+location:"☁️ LANGIT",
+picture:"🕊️",
+question:"Hewan yang bisa terbang adalah",
+answers:["burung"]
+},
+
+{
+location:"🍉 KEBUN",
+picture:"🍉",
+question:"Buah besar berwarna hijau adalah",
+answers:["semangka"]
+},
+
+{
+location:"🥕 KEBUN",
+picture:"🥕",
+question:"Sayuran berwarna oranye adalah",
+answers:["wortel"]
+},
+
+{
+location:"🌽 KEBUN",
+picture:"🌽",
+question:"Tanaman berwarna kuning ini adalah",
+answers:["jagung"]
+},
+
+{
+location:"🧸 KAMAR",
+picture:"🧸",
+question:"Mainan berbentuk beruang disebut",
+answers:["boneka"]
+},
+
+{
+location:"⌚ RUMAH",
+picture:"⌚",
+question:"Alat untuk melihat waktu adalah",
+answers:["jam"]
+},
+
+{
+location:"📱 RUMAH",
+picture:"📱",
+question:"Alat untuk menelepon adalah",
+answers:["telepon","hp","handphone"]
+},
+
+{
+location:"🏠 RUMAH",
+picture:"🚪",
+question:"Kita masuk rumah melalui",
+answers:["pintu"]
+},
+
+{
+location:"🏠 RUMAH",
+picture:"🪟",
+question:"Bagian rumah untuk melihat keluar adalah",
+answers:["jendela"]
+},
+
+{
+location:"🍞 DAPUR",
+picture:"🍞",
+question:"Makanan yang dibuat dari gandum adalah",
+answers:["roti"]
+},
+
+{
+location:"🥚 PETERNAKAN",
+picture:"🥚",
+question:"Ayam menghasilkan",
+answers:["telur"]
+},
+
+{
+location:"🌞 LANGIT",
+picture:"☀️",
+question:"Benda yang memberi cahaya di siang hari adalah",
+answers:["matahari"]
 }
 
 ];
+
+const questions = questionBank.map(item => ({
+    location:"🎲 PETUALANGAN",
+    picture:item[0],
+    question:item[1],
+    answers:item[2]
+}));
 
 
 let current = 0;
@@ -851,6 +1145,9 @@ document.getElementById("answer")
 
 /* MULAI */
 showQuestion();
+
+document.getElementById("totalQuestion").textContent =
+questions.length;
 
 </script>
 
