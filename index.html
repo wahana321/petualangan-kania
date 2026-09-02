@@ -1,0 +1,859 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Petualangan Kania - Game Anak TK</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:"Comic Sans MS","Trebuchet MS",sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+    background:
+        linear-gradient(#7bdcff 0%,#bdf3ff 55%,#a9e68a 55%,#8fd66d 100%);
+}
+
+/* AWAN */
+.cloud{
+    position:fixed;
+    background:white;
+    border-radius:100px;
+    opacity:.8;
+    z-index:0;
+}
+
+.cloud:before,
+.cloud:after{
+    content:"";
+    position:absolute;
+    background:white;
+    border-radius:50%;
+}
+
+.cloud1{
+    width:180px;
+    height:55px;
+    top:80px;
+    left:5%;
+}
+
+.cloud1:before{
+    width:80px;
+    height:80px;
+    left:30px;
+    top:-35px;
+}
+
+.cloud1:after{
+    width:70px;
+    height:70px;
+    right:25px;
+    top:-28px;
+}
+
+.cloud2{
+    width:150px;
+    height:45px;
+    top:170px;
+    right:5%;
+}
+
+.cloud2:before{
+    width:65px;
+    height:65px;
+    left:30px;
+    top:-30px;
+}
+
+.cloud2:after{
+    width:60px;
+    height:60px;
+    right:25px;
+    top:-25px;
+}
+
+/* GAME */
+.game{
+    position:relative;
+    z-index:2;
+    width:95%;
+    max-width:900px;
+    margin:25px auto;
+}
+
+/* HEADER */
+.header{
+    background:white;
+    border:6px solid #ffcf33;
+    border-radius:35px;
+    padding:15px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 8px 0 rgba(0,0,0,.12);
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+    color:#ff6b35;
+}
+
+.stats{
+    display:flex;
+    gap:15px;
+}
+
+.stat{
+    background:#fff4a3;
+    padding:10px 18px;
+    border-radius:20px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* PROGRESS */
+.progress-wrap{
+    margin:18px 5px;
+}
+
+.progress{
+    height:25px;
+    background:white;
+    border-radius:20px;
+    padding:4px;
+    box-shadow:0 4px 0 rgba(0,0,0,.1);
+}
+
+.progress-bar{
+    height:100%;
+    width:10%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#ffca28,#ff7043);
+    transition:.5s;
+}
+
+/* CARD */
+.card{
+    background:white;
+    border-radius:40px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 12px 0 rgba(0,0,0,.12);
+    border:5px solid #fff;
+}
+
+/* LOCATION */
+.location{
+    display:inline-block;
+    background:#e9f9ff;
+    color:#3498db;
+    padding:8px 20px;
+    border-radius:30px;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+/* QUESTION */
+.question{
+    font-size:34px;
+    font-weight:bold;
+    color:#333;
+    margin:15px auto;
+    max-width:750px;
+}
+
+.blank{
+    color:#ff7043;
+    letter-spacing:4px;
+}
+
+/* PICTURE */
+.picture{
+    width:230px;
+    height:190px;
+    margin:20px auto;
+    background:linear-gradient(145deg,#e6f9ff,#fff);
+    border-radius:35px;
+    border:6px solid #8edcff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:120px;
+    box-shadow:0 8px 0 #b7eaff;
+    animation:float 2s infinite ease-in-out;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-10px)}
+}
+
+/* INPUT */
+.answer{
+    width:65%;
+    max-width:430px;
+    padding:18px;
+    border-radius:25px;
+    border:5px solid #ffd54f;
+    font-size:28px;
+    text-align:center;
+    outline:none;
+    font-family:inherit;
+    font-weight:bold;
+    background:#fffef3;
+}
+
+.answer:focus{
+    border-color:#ff8a65;
+    transform:scale(1.03);
+}
+
+/* BUTTON */
+.buttons{
+    margin-top:18px;
+}
+
+.btn{
+    border:none;
+    padding:16px 30px;
+    border-radius:25px;
+    font-family:inherit;
+    font-size:24px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 6px 0 rgba(0,0,0,.15);
+    transition:.15s;
+}
+
+.btn:active{
+    transform:translateY(5px);
+    box-shadow:0 1px 0 rgba(0,0,0,.15);
+}
+
+.check{
+    background:#4cd137;
+    color:white;
+}
+
+.next{
+    background:#3498db;
+    color:white;
+    display:none;
+}
+
+/* MESSAGE */
+.message{
+    min-height:55px;
+    margin-top:15px;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.correct{
+    color:#27ae60;
+}
+
+.wrong{
+    color:#e74c3c;
+}
+
+/* CHARACTER */
+.character{
+    position:fixed;
+    right:25px;
+    bottom:15px;
+    font-size:90px;
+    z-index:5;
+    animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-15px)}
+}
+
+/* FINISH */
+.finish{
+    display:none;
+    background:white;
+    border-radius:40px;
+    padding:45px;
+    text-align:center;
+    box-shadow:0 12px 0 rgba(0,0,0,.15);
+}
+
+.finish h1{
+    color:#ff7043;
+    font-size:45px;
+}
+
+.big-stars{
+    font-size:65px;
+    animation:star .8s infinite alternate;
+}
+
+@keyframes star{
+    from{transform:scale(1)}
+    to{transform:scale(1.15)}
+}
+
+.final-score{
+    font-size:35px;
+    color:#3498db;
+}
+
+/* CONFETTI */
+.confetti{
+    position:fixed;
+    width:12px;
+    height:12px;
+    top:-20px;
+    z-index:20;
+    animation:fall 2s linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+    }
+}
+
+/* RESPONSIVE */
+@media(max-width:650px){
+
+    .header{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .logo{
+        font-size:24px;
+    }
+
+    .question{
+        font-size:25px;
+    }
+
+    .picture{
+        width:180px;
+        height:150px;
+        font-size:90px;
+    }
+
+    .answer{
+        width:100%;
+        font-size:24px;
+    }
+
+    .character{
+        font-size:60px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
+
+<div class="game">
+
+    <div class="header">
+
+        <div class="logo">
+            🌈 Petualangan Kania
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                ⭐ <span id="score">0</span>
+            </div>
+
+            <div class="stat">
+                📝 <span id="number">1</span>/10
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="progress-wrap">
+
+        <div class="progress">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+
+    </div>
+
+
+    <div class="card" id="gameCard">
+
+        <div class="location" id="location">
+            🏫 SEKOLAH
+        </div>
+
+        <div class="picture" id="picture">
+            🚌
+        </div>
+
+        <div class="question" id="question">
+            Kania pergi ke sekolah naik
+            <span class="blank">.........</span>
+        </div>
+
+        <input
+            class="answer"
+            id="answer"
+            type="text"
+            placeholder="Ketik jawabanmu..."
+            autocomplete="off"
+        >
+
+        <div class="buttons">
+
+            <button
+                class="btn check"
+                id="check"
+                onclick="checkAnswer()">
+                ✨ CEK JAWABAN
+            </button>
+
+            <button
+                class="btn next"
+                id="next"
+                onclick="nextQuestion()">
+                🚀 LANJUT
+            </button>
+
+        </div>
+
+        <div
+            class="message"
+            id="message">
+        </div>
+
+    </div>
+
+
+    <div class="finish" id="finish">
+
+        <div class="big-stars">
+            🌟🌟🌟
+        </div>
+
+        <h1>
+            🎉 HEBAT SEKALI! 🎉
+        </h1>
+
+        <p style="font-size:25px;">
+            Kamu berhasil menyelesaikan petualangan!
+        </p>
+
+        <div class="final-score">
+            ⭐ Nilai Kamu:
+            <b><span id="finalScore">0</span></b>
+        </div>
+
+        <br>
+
+        <button
+            class="btn check"
+            onclick="restartGame()">
+            🔄 MAIN LAGI
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="character">
+    👧
+</div>
+
+
+<script>
+
+/* =========================
+   DATA SOAL
+========================= */
+
+const questions = [
+
+{
+    location:"🏫 SEKOLAH",
+    picture:"🚌",
+    question:"Kania pergi ke sekolah naik",
+    answers:["bus","bis"]
+},
+
+{
+    location:"🏠 RUMAH",
+    picture:"🛏️",
+    question:"Kita tidur di atas",
+    answers:["kasur","tempat tidur"]
+},
+
+{
+    location:"🍎 PASAR",
+    picture:"🍎",
+    question:"Buah yang berwarna merah ini adalah",
+    answers:["apel"]
+},
+
+{
+    location:"🐯 KEBUN BINATANG",
+    picture:"🐯",
+    question:"Hewan ini disebut",
+    answers:["harimau"]
+},
+
+{
+    location:"🌳 TAMAN",
+    picture:"🌸",
+    question:"Benda yang berwarna indah ini adalah",
+    answers:["bunga"]
+},
+
+{
+    location:"🍽️ DAPUR",
+    picture:"🥄",
+    question:"Kita makan menggunakan",
+    answers:["sendok"]
+},
+
+{
+    location:"🌧️ HUJAN",
+    picture:"☔",
+    question:"Saat hujan kita memakai",
+    answers:["payung"]
+},
+
+{
+    location:"🐱 RUMAH",
+    picture:"🐟",
+    question:"Kucing suka makan",
+    answers:["ikan"]
+},
+
+{
+    location:"🏖️ PANTAI",
+    picture:"🌊",
+    question:"Air yang sangat luas di pantai disebut",
+    answers:["laut"]
+},
+
+{
+    location:"🚀 LUAR ANGKASA",
+    picture:"🌙",
+    question:"Benda yang terlihat pada malam hari adalah",
+    answers:["bulan"]
+}
+
+];
+
+
+let current = 0;
+let score = 0;
+let locked = false;
+
+
+/* =========================
+   TAMPILKAN SOAL
+========================= */
+
+function showQuestion(){
+
+    const q = questions[current];
+
+    document.getElementById("location").textContent =
+        q.location;
+
+    document.getElementById("picture").textContent =
+        q.picture;
+
+    document.getElementById("question").innerHTML =
+        q.question +
+        ' <span class="blank">.........</span>';
+
+    document.getElementById("number").textContent =
+        current + 1;
+
+    document.getElementById("answer").value = "";
+
+    document.getElementById("answer").disabled = false;
+
+    document.getElementById("message").textContent = "";
+
+    document.getElementById("message").className =
+        "message";
+
+    document.getElementById("check").style.display =
+        "inline-block";
+
+    document.getElementById("next").style.display =
+        "none";
+
+    locked = false;
+
+    updateProgress();
+
+    setTimeout(()=>{
+        document.getElementById("answer").focus();
+    },100);
+
+}
+
+
+/* =========================
+   CEK JAWABAN
+========================= */
+
+function checkAnswer(){
+
+    if(locked) return;
+
+    const input =
+        document.getElementById("answer")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const message =
+        document.getElementById("message");
+
+    if(input === ""){
+
+        message.textContent =
+            "😊 Ayo isi jawabannya dulu!";
+
+        message.className =
+            "message wrong";
+
+        return;
+    }
+
+
+    const correct =
+        questions[current].answers
+        .some(answer => answer === input);
+
+
+    if(correct){
+
+        locked = true;
+
+        score += 10;
+
+        document.getElementById("score")
+            .textContent = score;
+
+        message.textContent =
+            "🎉 BENAR! KAMU HEBAT! ⭐";
+
+        message.className =
+            "message correct";
+
+        document.getElementById("answer")
+            .disabled = true;
+
+        document.getElementById("check")
+            .style.display = "none";
+
+        document.getElementById("next")
+            .style.display = "inline-block";
+
+        createConfetti();
+
+    }else{
+
+        message.textContent =
+            "🤔 Belum tepat... Coba lagi ya!";
+
+        message.className =
+            "message wrong";
+
+        document.getElementById("answer")
+            .select();
+    }
+
+}
+
+
+/* =========================
+   SOAL BERIKUTNYA
+========================= */
+
+function nextQuestion(){
+
+    current++;
+
+    if(current >= questions.length){
+
+        finishGame();
+
+    }else{
+
+        showQuestion();
+
+    }
+
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+function updateProgress(){
+
+    const percent =
+        ((current) / questions.length) * 100;
+
+    document.getElementById("progress")
+        .style.width = percent + "%";
+
+}
+
+
+/* =========================
+   SELESAI
+========================= */
+
+function finishGame(){
+
+    document.getElementById("gameCard")
+        .style.display = "none";
+
+    document.querySelector(".progress-wrap")
+        .style.display = "none";
+
+    document.getElementById("finish")
+        .style.display = "block";
+
+    document.getElementById("finalScore")
+        .textContent = score;
+
+    createConfetti();
+    createConfetti();
+    createConfetti();
+
+}
+
+
+/* =========================
+   MAIN LAGI
+========================= */
+
+function restartGame(){
+
+    current = 0;
+    score = 0;
+
+    document.getElementById("score")
+        .textContent = 0;
+
+    document.getElementById("gameCard")
+        .style.display = "block";
+
+    document.querySelector(".progress-wrap")
+        .style.display = "block";
+
+    document.getElementById("finish")
+        .style.display = "none";
+
+    showQuestion();
+
+}
+
+
+/* =========================
+   CONFETTI
+========================= */
+
+function createConfetti(){
+
+    const symbols = [
+        "⭐",
+        "🌟",
+        "🎉",
+        "✨",
+        "💛",
+        "🎈"
+    ];
+
+    for(let i=0;i<30;i++){
+
+        const el =
+            document.createElement("div");
+
+        el.className = "confetti";
+
+        el.textContent =
+            symbols[Math.floor(
+                Math.random()*symbols.length
+            )];
+
+        el.style.left =
+            Math.random()*100 + "vw";
+
+        el.style.animationDuration =
+            (1.5 + Math.random()*1.5) + "s";
+
+        el.style.fontSize =
+            (15 + Math.random()*20) + "px";
+
+        document.body.appendChild(el);
+
+        setTimeout(()=>{
+            el.remove();
+        },3000);
+
+    }
+
+}
+
+
+/* =========================
+   ENTER = CEK
+========================= */
+
+document.getElementById("answer")
+.addEventListener("keydown",function(e){
+
+    if(e.key === "Enter"){
+
+        if(!locked){
+
+            checkAnswer();
+
+        }else{
+
+            nextQuestion();
+
+        }
+
+    }
+
+});
+
+
+/* MULAI */
+showQuestion();
+
+</script>
+
+</body>
+</html>
+```
